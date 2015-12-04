@@ -36,6 +36,7 @@ import com.liquid.liquidlounge.fragments.AlarmBlocker;
 import com.liquid.liquidlounge.fragments.MiscSettings;
 import com.liquid.liquidlounge.fragments.ScreenStateToggles;
 import com.liquid.liquidlounge.fragments.WakeLockBlocker;
+import com.liquid.liquidlounge.fragments.AppCircleBar;
 
 public class MiscTab extends SettingsPreferenceFragment {
 
@@ -79,6 +80,7 @@ public class MiscTab extends SettingsPreferenceFragment {
             frags[2] = new ScreenStateToggles();
             frags[3] = new WakeLockBlocker();
             frags[4] = new AppOpsSummary();
+            frags[5] = new AppCircleBar();
         }
 
         @Override
@@ -104,7 +106,8 @@ public class MiscTab extends SettingsPreferenceFragment {
                 getString(R.string.alarm_blocker),
                 getString(R.string.screen_state_toggles_title),
                 getString(R.string.wakelock_blocker_title),
-                getString(R.string.app_ops_settings)};
+                getString(R.string.app_ops_settings),
+                getString(R.string.app_circle_bar)};
 
         return titleString;
     }
