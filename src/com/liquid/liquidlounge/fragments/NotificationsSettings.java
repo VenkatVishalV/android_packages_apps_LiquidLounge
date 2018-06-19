@@ -28,10 +28,14 @@ import com.android.internal.logging.nano.MetricsProto;
 
 import com.liquid.liquidlounge.preferences.Utils;
 
-public class NotificationsSettings extends SettingsPreferenceFragment {
+public class Notifications extends SettingsPreferenceFragment 
+        implements Preference.OnPreferenceChangeListener {
 
     private static final String INCALL_VIB_OPTIONS = "incall_vib_options";
+    private static final String FLASHLIGHT_ON_CALL = "flashlight_on_call";
+
     private Preference mChargingLeds;
+    private ListPreference mFlashlightOnCall;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -52,6 +56,35 @@ public class NotificationsSettings extends SettingsPreferenceFragment {
                         com.android.internal.R.bool.config_intrusiveBatteryLed)) {
             prefScreen.removePreference(mChargingLeds);
         }
+
+        mFlashlightOnCall = (ListPreference) findPreference(FLASHLIGHT_ON_CALL);
+        Preference FlashOnCall = findPreference("flashlight_on_call");
+        int flashlightValue = Settings.System.getInt(getContentResolver(),
+                Settings.System.FLASHLIGHT_ON_CALL, 0);
+        mFlashlightOnCall.setValue(String.valueOf(flashlightValue));
+        mFlashlightOnCall.setSummary(mFlashlightOnCall.getEntry());
+        mFlashlightOnCall.setOnPreferenceChangeListener(this);
+        if (!Utils.deviceSupportsFlashLight(getActivity())) {
+            prefScreen.removePreference(FlashOnCall);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public boolean onPreferenceChange(Preference preference, Object objValue) {
+        if (preference == mFlashlightOnCall) {
+            int flashlightValue = Integer.parseInt(((String) objValue).toString());
+            Settings.System.putInt(getContentResolver(),
+                  Settings.System.FLASHLIGHT_ON_CALL, flashlightValue);
+            mFlashlightOnCall.setValue(String.valueOf(flashlightValue));
+            mFlashlightOnCall.setSummary(mFlashlightOnCall.getEntry());
+            return true;
+        }
+        return false;
     }
 
     @Override
