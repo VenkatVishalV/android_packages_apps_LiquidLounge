@@ -35,6 +35,13 @@
         android:entries="@array/entries_scrollingcache"
         android:entryValues="@array/values_scrollingcache" />	
 
+        <Preference
+        android:key="blur"
+        android:icon="@drawable/ic_blur"
+        android:title="@string/settings_blur_cat"
+        android:summary="@string/settings_blur_cat_summary"
+        android:fragment="com.liquid.liquidlounge.fragments.BlurPersonalizations" />
+
 	<com.liquid.liquidlounge.preferences.GlobalSettingSwitchPreference
         android:key="system_default_animation"
         android:title="@string/system_default_animation_title"

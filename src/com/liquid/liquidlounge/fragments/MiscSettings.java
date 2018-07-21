@@ -28,6 +28,8 @@ import com.android.internal.logging.nano.MetricsProto;
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 
+import com.liquid.liquidlounge.fragments.BlurPersonalizations;
+
 public class MiscSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
@@ -75,6 +77,11 @@ public class MiscSettings extends SettingsPreferenceFragment
             return true;
         }
         return false;
+    }
+
+    public static void reset(Context mContext) {
+        ContentResolver resolver = mContext.getContentResolver();
+        BlurPersonalizations.reset(mContext);
     }
 
     @Override
