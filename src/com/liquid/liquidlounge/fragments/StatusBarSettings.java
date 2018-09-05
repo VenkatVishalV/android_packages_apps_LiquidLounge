@@ -59,11 +59,18 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener {
 
     private static final String CUSTOM_CARRIER_LABEL = "custom_carrier_label";
+    private static final String SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
+    private static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
+
+    private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 3;
+    private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
 
     private SystemSettingSeekBarPreference mThreshold;
     private SystemSettingSwitchPreference mNetMonitor;
     private PreferenceScreen mCustomCarrierLabel;
     private String mCustomCarrierLabelText;
+    private ListPreference mStatusBarBatteryShowPercent;
+    private ListPreference mStatusBarBattery;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -90,6 +97,21 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         // custom carrier label
         mCustomCarrierLabel = (PreferenceScreen) findPreference(CUSTOM_CARRIER_LABEL);
         updateCustomLabelTextSummary();
+
+        mStatusBarBatteryShowPercent =
+                (ListPreference) findPreference(SHOW_BATTERY_PERCENT);
+        int batteryShowPercent = Settings.System.getInt(resolver,
+                Settings.System.SHOW_BATTERY_PERCENT, 0);
+        mStatusBarBatteryShowPercent.setValue(String.valueOf(batteryShowPercent));
+        mStatusBarBatteryShowPercent.setSummary(mStatusBarBatteryShowPercent.getEntry());
+        mStatusBarBatteryShowPercent.setOnPreferenceChangeListener(this);
+        mStatusBarBattery = (ListPreference) findPreference(STATUS_BAR_BATTERY_STYLE);
+        int batteryStyle = Settings.Secure.getInt(resolver,
+                Settings.Secure.STATUS_BAR_BATTERY_STYLE, 0);
+        mStatusBarBattery.setValue(String.valueOf(batteryStyle));
+        mStatusBarBattery.setSummary(mStatusBarBattery.getEntry());
+        enableStatusBarBatteryDependents(batteryStyle);
+        mStatusBarBattery.setOnPreferenceChangeListener(this);
     }
 
     @Override
