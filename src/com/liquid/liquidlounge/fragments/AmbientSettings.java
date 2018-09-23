@@ -88,6 +88,9 @@ public class AmbientSettings extends SettingsPreferenceFragment
         PreferenceCategory proximitySensorCategory =
                 (PreferenceCategory) getPreferenceScreen().findPreference(Utils.CATEG_PROX_SENSOR);
 
+        PreferenceCategory proximitySensorCategory =
+                (PreferenceCategory) getPreferenceScreen().findPreference(Utils.CATEG_PROX_SENSOR);
+
         mDozePreference = (SwitchPreference) findPreference(KEY_DOZE);
         mDozePreference.setOnPreferenceChangeListener(this);
 
