@@ -86,6 +86,7 @@ public class QuickSettings extends SettingsPreferenceFragment
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
+        ContentResolver resolver = context.getContentResolver();
         if (preference == mQsPanelAlpha) {
             int bgAlpha = (Integer) newValue;
             Settings.System.putIntForUser(getContentResolver(),

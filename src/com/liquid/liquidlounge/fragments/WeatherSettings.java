@@ -33,7 +33,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
-import com.liquid.liquidlounge.preferences.Utils;
+import com.liquid.liquidlounge.Utils;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;

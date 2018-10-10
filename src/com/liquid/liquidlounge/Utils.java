@@ -1,20 +1,19 @@
-/**
- * Copyright (C) 2018 The Liquid Remix Project
+/*
+ * Copyright (C) 2018 The LiquidRemix Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy
- * of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations
- * under the License.
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
-
-package com.liquid.liquidlounge.preferences;
+package com.liquid.liquidlounge;
 
 import android.app.Activity;
 import android.content.Context;
@@ -39,7 +38,7 @@ import android.view.Surface;
 import android.view.WindowManager;
 
 public final class Utils {
-    private static final String TAG = "LiquidLoungeUtils";
+    private static final String TAG = "Utils";
 
     // Device types
     private static final int DEVICE_PHONE = 0;
@@ -151,6 +150,15 @@ public final class Utils {
         return isPackageInstalled(context, pkg, true);
     }
 
+    public static boolean isPackageInstalled(String packageName, PackageManager pm) {
+        try {
+            String mVersion = pm.getPackageInfo(packageName, 0).versionName;
+            return mVersion != null;
+        } catch (PackageManager.NameNotFoundException notFound) {
+            return false;
+        }
+    }
+
     /**
      * Locks the activity orientation to the current device orientation
      * @param activity
@@ -204,5 +212,28 @@ public final class Utils {
             // Ignore
         }
         return false;
+    }
+
+    public static boolean isAppInstalled(Context context, String appUri) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            pm.getPackageInfo(appUri, PackageManager.GET_ACTIVITIES);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean isAvailableApp(String packageName, Context context) {
+        Context mContext = context;
+        final PackageManager pm = mContext.getPackageManager();
+        try {
+            pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
+            int enabled = pm.getApplicationEnabledSetting(packageName);
+            return enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED &&
+                enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER;
+        } catch (NameNotFoundException e) {
+            return false;
+        }
     }
 }

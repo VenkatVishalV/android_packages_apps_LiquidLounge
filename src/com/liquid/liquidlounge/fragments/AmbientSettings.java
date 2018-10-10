@@ -45,6 +45,7 @@ import android.widget.SeekBar;
 import com.android.internal.logging.nano.MetricsProto;
 import com.liquid.liquidlounge.R;
 import com.android.settings.SettingsPreferenceFragment;
+import com.liquid.liquidlounge.Utils;
 
 import com.liquid.liquidlounge.preferences.SystemSettingSeekBarPreference;
 
@@ -84,9 +85,6 @@ public class AmbientSettings extends SettingsPreferenceFragment
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.ambient_settings);
-
-        PreferenceCategory proximitySensorCategory =
-                (PreferenceCategory) getPreferenceScreen().findPreference(Utils.CATEG_PROX_SENSOR);
 
         PreferenceCategory proximitySensorCategory =
                 (PreferenceCategory) getPreferenceScreen().findPreference(Utils.CATEG_PROX_SENSOR);

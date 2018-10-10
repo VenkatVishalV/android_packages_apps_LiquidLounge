@@ -53,7 +53,7 @@ public class CarbonGesturesSettings extends SettingsPreferenceFragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        addPreferencesFromResource(R.xml.carbongestures);
+        addPreferencesFromResource(R.xml.carbon_gestures);
 
         ContentResolver resolver = getActivity().getContentResolver();
 
